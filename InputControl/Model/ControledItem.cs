@@ -21,6 +21,5 @@ namespace InputControl.Model
         public bool VpNeed { get; set; }
         public string SupportDocument { get; set; }
         public int Token { get; set; }
-
     }
 }
