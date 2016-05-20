@@ -58,8 +58,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ViewModel\ControlledItemViewModel.cs" />
+    <Compile Include="ViewModel\ItemViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\BaseEntity.cs" />
+    <Compile Include="Model\ReferenceEntity.cs" />
+    <Compile Include="Model\ControledItem.cs" />
+    <Compile Include="Model\ControlledSection.cs" />
+    <Compile Include="Model\ItemToken.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
