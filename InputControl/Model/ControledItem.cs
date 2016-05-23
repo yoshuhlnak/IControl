@@ -13,13 +13,17 @@ namespace InputControl.Model
         public string Technique { get; set; }
         public string Label { get; set; }
         public string StorageTime { get; set; }
-        public int Subdiv { get; set; }
         public DateTime Date { get; set; }
         public string EdituserLogin { get; set; }
         public string Responsible { get; set; }
         public int Section { get; set; }
         public bool VpNeed { get; set; }
         public string SupportDocument { get; set; }
-        public int Token { get; set; }
+
+
+        // Nav props
+        public virtual ItemToken Token { get; set; }
+        public virtual ControlledSection ControlledSection { get; set; }
+        public virtual Subdivision Subdiv { get; set; }
     }
 }
