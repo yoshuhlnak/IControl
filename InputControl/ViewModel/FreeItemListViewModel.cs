@@ -1,46 +1,54 @@
 ﻿using InputControl.Model;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Data.Entity;
+using System.Linq;
 
 namespace InputControl.ViewModel
 {
     public class FreeItemListViewModel : IListViewModel<FreeItem>
     {
-        public FreeItemViewModel()
+        private readonly DbContext _context;
+        public FreeItemListViewModel( DbContext context )
         {
+            _context = context;
             SelectedItems = new List<FreeItem>();
-            }
+        }
 
         public IList<FreeItem> SelectedItems { get; private set; }
 
-        public FreeItem Focused
-        {
-            get;
+        public FreeItem Focused { get; set; }
 
-            set;
-        }
+        public bool CanCreateControlled { get; set; }
+        public bool CanCreateControlledSrl { get; set; }
 
-        public ICollectionView ListCollection
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
+        public IList<FreeItem> ListCollection { get; set; }
+        /// <summary>
+        /// обновление из базы 
+        /// </summary>
         public void Refresh()
         {
-            throw new NotImplementedException();
+            Clear();
+            ListCollection = _context.Set<FreeItem>().Select(i => i).ToList();
         }
 
-        public void AddSelectedToControl()
+        private void Clear()
         {
+            SelectedItems . Clear();
+            Focused = null;
+        }
+        /// <summary>
+        /// удаление изделий из списка
+        /// </summary>
+        /// <param name="items"></param>
+        public void RemoveItems(IEnumerable<FreeItem> items)
+        {
+            foreach (var freeItem in items)
+            {
+                ListCollection.Remove(freeItem);
+                SelectedItems.Remove(freeItem);
+                if (freeItem == Focused)
+                    Focused = null;
+            }
         }
     }
 }

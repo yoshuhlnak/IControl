@@ -1,6 +1,6 @@
 ﻿namespace InputControl.Model
 {
-    public class ControlledSection : ReferencEntity
+    public class Subdivision : ReferencEntity
     {
          
     }

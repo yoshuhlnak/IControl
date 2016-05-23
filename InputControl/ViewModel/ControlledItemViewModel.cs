@@ -2,14 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InputControl.ViewModel
 {
     public class ControlledItemViewModel
     {
-        private IList<BaseEntity> _entities;
+        private readonly IList<BaseEntity> _entities;
 
         public ControlledItemViewModel(IList<BaseEntity> entities)
         {

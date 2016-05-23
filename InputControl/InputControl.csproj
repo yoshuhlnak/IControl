@@ -75,6 +75,7 @@
     </Compile>
     <Compile Include="Model\DataContext.cs" />
     <Compile Include="Model\FreeItem.cs" />
+    <Compile Include="Model\Subdivision.cs" />
     <Compile Include="ViewModel\ControlledItemListViewModel.cs" />
     <Compile Include="ViewModel\ControlledItemViewModel.cs" />
     <Compile Include="ViewModel\FreeItemListViewModel.cs" />

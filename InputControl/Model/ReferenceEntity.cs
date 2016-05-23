@@ -1,6 +1,6 @@
 ﻿namespace InputControl.Model
 {
-    public class Referencentity : BaseEntity
+    public class ReferencEntity : BaseEntity
     {
         public string Name { get; set; }
     }

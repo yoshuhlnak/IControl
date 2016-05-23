@@ -1,33 +1,35 @@
 ﻿using InputControl.Model;
-using System;
-using System.ComponentModel;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 
 namespace InputControl.ViewModel
 {
     public class ControlledItemListViewModel : IListViewModel<ControledItem>
     {
-        public ControlledItemViewModel()
+        private readonly DbContext _context;
+
+        public ControlledItemListViewModel( DbContext context )
         {
+            _context = context;
         }
 
-        public ICollectionView ListCollection
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public IList<ControledItem> ListCollection { get; set; }
 
         public ControledItem Focused { get; set; }
 
         public void Refresh()
         {
-            throw new NotImplementedException();
+            Focused = null;
+            ListCollection = _context.Set<ControledItem>().Select(i => i).ToList();
+        }
+
+        public void AddControlledItems(IEnumerable<ControledItem> items)
+        {
+            foreach (var item in items )
+            {
+                ListCollection.Add(item);
+            }
         }
     }
 }
