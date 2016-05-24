@@ -2,10 +2,61 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:viewModel="clr-namespace:InputControl.ViewModel"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance viewModel:ControlledItemListViewModel}" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"/>
+            <Button Grid.Column="1"/>
+            <Button Grid.Column="2"/>
+            <Button Grid.Column="3"/>
+        </Grid>
+        
+        <dxg:GridControl Grid.Row="1" MaxHeight="2056"
+            ItemsSource="{Binding ListCollection}"
+                         SelectedItem="{Binding Focused}">
+            <dxg:GridControl.Columns>
+                <dxg:GridColumn Header="Обозначение(Код МАХ)" Binding="{Binding Item}"/>
+                <dxg:GridColumn Header="Наименование, обозначение, марка и  тип контролируемой продукции" 
+                                Binding="{Binding Name}"/>
+                <dxg:GridColumn Header="Обозначение документа, требованиям которого должна соответствовать продукция" 
+                                Binding="{Binding ControlledItemInfo}"/>
+                <dxg:GridColumn Header="Контролируемый параметр продукции, метод проверки или пункт документа по стандартизации, в котором он установлен" 
+                                Binding="{Binding Params}"/>
+                <dxg:GridColumn Header="Вид контроля, объём выборки или пробы(правило выборочного контроля), контрольный норматив, разрешающее правило" 
+                                Binding="{Binding ControlType}"/>
+                <dxg:GridColumn Header="Средство измерения или его требуемая метрологическая характеристика" 
+                                Binding="{Binding MeasurementTools}"/>
+                <dxg:GridColumn Header="Методика контроля" 
+                                Binding="{Binding Technique}"/>
+                <dxg:GridColumn Header="Дополнительное оборудование для проведения входного контроля" 
+                                Binding="{Binding Label}"/>
+                <dxg:GridColumn Header="Гарантийный срок хранения МПКИ" 
+                                Binding="{Binding StorageTime}"/>
+                <dxg:GridColumn Header="Ответственный за номенклатуру" Binding="{Binding Responsible}"/>
+                <dxg:GridColumn Header="Подразделение, проводящее входной контроль" Binding="{Binding Subdiv.Name}"/>
+                <dxg:GridColumn Header="Раздел перечня" Binding="{Binding ControlledSection.Name}"/>
+                <dxg:GridColumn Header="Сопроводительная документация" Binding="{Binding SupportDocument}"/>
+                <dxg:GridColumn Header="ВП" Binding="{Binding VpNeed}"/>
+                <!--<dxg:GridColumn Header="Наличие файла с дополнительными данными" Binding="{Binding Converter={}}"/>-->
+                <!--<dxg:GridColumn Header="Менеджер логистики" Binding="{Binding }"/>
+                <dxg:GridColumn Header="Признак закупки" Binding="{Binding }"/>-->
+            </dxg:GridControl.Columns>
+        </dxg:GridControl>
     </Grid>
 </UserControl>

@@ -79,16 +79,20 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Converters\ItemsCollectionNameConverter.cs" />
     <Compile Include="DialogRelated\IDialogResultVMHelper.cs" />
     <Compile Include="DialogRelated\RequestCloseDialogEventArgs .cs" />
-    <Compile Include="DialogWindow.xaml.cs">
+    <Compile Include="Service\IUserService.cs" />
+    <Compile Include="Service\UserService.cs" />
+    <Compile Include="View\DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\DataContext.cs" />
     <Compile Include="Model\FreeItem.cs" />
+    <Compile Include="Model\IItem.cs" />
     <Compile Include="Model\Subdivision.cs" />
     <Compile Include="Service\DialogService .cs" />
     <Compile Include="Service\IDialogService.cs" />
@@ -99,6 +103,7 @@
     <Compile Include="ViewModel\ControlledItemViewModel.cs" />
     <Compile Include="ViewModel\FreeItemListViewModel.cs" />
     <Compile Include="ViewModel\IListViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="View\ControlledItemListView.xaml.cs">
       <DependentUpon>ControlledItemListView.xaml</DependentUpon>
     </Compile>
@@ -152,11 +157,11 @@
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="DialogWindow.xaml">
+    <Page Include="View\DialogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="View\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -173,6 +178,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.1.29.2\build\dotnet\Fody.targets" Condition="Exists('..\packages\Fody.1.29.2\build\dotnet\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
