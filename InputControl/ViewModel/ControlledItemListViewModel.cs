@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace InputControl.ViewModel
 {
-    public class ControlledItemListViewModel : IListViewModel<ControledItem>
+    public class ControlledItemListViewModel : IListViewModel<ControlledItem>
     {
         private readonly DbContext _context;
 
@@ -14,17 +14,17 @@ namespace InputControl.ViewModel
             _context = context;
         }
 
-        public IList<ControledItem> ListCollection { get; set; }
+        public IList<ControlledItem> ListCollection { get; set; }
 
-        public ControledItem Focused { get; set; }
+        public ControlledItem Focused { get; set; }
 
         public void Refresh()
         {
             Focused = null;
-            ListCollection = _context.Set<ControledItem>().Select(i => i).ToList();
+            ListCollection = _context.Set<ControlledItem>().Select(i => i).ToList();
         }
 
-        public void AddControlledItems(IEnumerable<ControledItem> items)
+        public void AddControlledItems(IEnumerable<ControlledItem> items)
         {
             foreach (var item in items )
             {

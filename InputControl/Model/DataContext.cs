@@ -13,7 +13,7 @@ namespace InputControl.Model
         { 
         }
 
-        public virtual DbSet<ControledItem> ControlledItems { get; set; }
+        public virtual DbSet<ControlledItem> ControlledItems { get; set; }
         public virtual DbSet<FreeItem> FreeItems { get; set; }
         public virtual DbSet<ControlledSection> ControlledSections { get; set; }
         public virtual DbSet<ItemToken> ItemTokens { get; set; }

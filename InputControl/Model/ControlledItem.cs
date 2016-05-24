@@ -2,7 +2,7 @@
 
 namespace InputControl.Model
 {
-    public class ControledItem : BaseEntity
+    public class ControlledItem : BaseEntity
     {
         public string Item { get; set; }
         public string Name { get; set; }

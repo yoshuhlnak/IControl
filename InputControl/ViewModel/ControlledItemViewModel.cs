@@ -40,7 +40,7 @@ namespace InputControl.ViewModel
             {
                 SaveEntity(entity);
             }
-            foreach(var entity in _entities.OfType<ControledItem>())
+            foreach(var entity in _entities.OfType<ControlledItem>())
             {
                 SaveEntity(entity);
             }
@@ -50,7 +50,7 @@ namespace InputControl.ViewModel
         {
         }
 
-        public void SaveEntity(ControledItem item )
+        public void SaveEntity(ControlledItem item )
         {
 
         }
