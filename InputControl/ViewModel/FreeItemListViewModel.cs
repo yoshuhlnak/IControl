@@ -5,9 +5,11 @@ using System.Data.Entity;
 using System.Linq;
 using System.Windows.Input;
 using DevExpress.Mvvm;
+using PropertyChanged;
 
 namespace InputControl.ViewModel
 {
+    [ImplementPropertyChanged]
     public class FreeItemListViewModel : IListViewModel<FreeItem>
     {
         private readonly DbContext _context;

@@ -4,11 +4,13 @@ using System.Windows.Input;
 using DevExpress.Mvvm;
 using InputControl.DialogRelated;
 using InputControl.Model;
+using PropertyChanged;
 
 namespace InputControl.ViewModel
 {
     public delegate void ControlledItemViewModelCallBack( ControlledItemViewModel vm );
 
+    [ImplementPropertyChanged]
     public class ControlledItemViewModel : IDialogResultVMHelper
     {
         private readonly ControlledItemViewModelCallBack _callBack;

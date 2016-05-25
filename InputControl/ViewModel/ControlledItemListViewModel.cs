@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using PropertyChanged;
 
 namespace InputControl.ViewModel
 {
+    [ImplementPropertyChanged]
     public class ControlledItemListViewModel : IListViewModel<ControlledItem>
     {
         private readonly DbContext _context;
