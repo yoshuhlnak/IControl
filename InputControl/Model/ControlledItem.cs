@@ -2,9 +2,9 @@
 
 namespace InputControl.Model
 {
-    public class ControlledItem : BaseEntity
+    public class ControlledItem : BaseEntity, IItem
     {
-        public string Item { get; set; }
+        public string Designation { get; set; }
         public string Name { get; set; }
         public string ControlledItemInfo { get; set; }
         public string Params { get; set; }
@@ -14,9 +14,8 @@ namespace InputControl.Model
         public string Label { get; set; }
         public string StorageTime { get; set; }
         public DateTime Date { get; set; }
-        public string EdituserLogin { get; set; }
+        public string EditUserLogin { get; set; }
         public string Responsible { get; set; }
-        public int Section { get; set; }
         public bool VpNeed { get; set; }
         public string SupportDocument { get; set; }
 

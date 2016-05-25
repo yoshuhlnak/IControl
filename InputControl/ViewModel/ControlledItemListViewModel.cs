@@ -14,7 +14,7 @@ namespace InputControl.ViewModel
             _context = context;
         }
 
-        public IList<ControlledItem> ListCollection { get; set; }
+        public ICollection<ControlledItem> ListCollection { get; set; }
 
         public ControlledItem Focused { get; set; }
 

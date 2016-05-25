@@ -2,10 +2,38 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:viewModel="clr-namespace:InputControl.ViewModel"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance viewModel:FreeItemListViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Height="32">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Text="{Binding Count}" Width="200"></TextBox>
+            <Button Grid.Column="1" Content="Refresh"
+                    Command="{Binding RefreshCommand}" Height="32"/>
+        </Grid>
+        <dxg:GridControl Grid.Row="1" MaxHeight="2056"
+                         ItemsSource="{Binding ListCollection,UpdateSourceTrigger=PropertyChanged}"
+                         >
+            <dxg:GridControl.Columns>
+                <dxg:GridColumn Header="Обозначение (Код MAX)" Binding="{Binding Designation, UpdateSourceTrigger=PropertyChanged}"/>
+                <dxg:GridColumn Header="Наименование МПКИ" Binding="{Binding Name}"/>
+                <!--<dxg:GridColumn Header="Выбрать" Binding="{Binding }"/> --><!-- TODO: Convert to Selected List inside view model -->
+                <dxg:GridColumn Header="Признак закупки" Binding="{Binding PurchaseType}"/>
+            </dxg:GridControl.Columns>
+        </dxg:GridControl>
     </Grid>
 </UserControl>

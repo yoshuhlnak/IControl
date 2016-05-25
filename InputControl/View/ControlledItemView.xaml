@@ -3,10 +3,152 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:dxg=""
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:vm="clr-namespace:InputControl.ViewModel"
+             xmlns:converters="clr-namespace:InputControl.Converters"
              mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance vm:ControlledItemViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions> 
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
             
+            <Label Grid.Row="0" Grid.Column="0" 
+                   Content="Обозначение(КодМАХ):"/>
+            <ListBox Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"
+                     ItemsSource="{Binding Items}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBox Text="{Binding Designation}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                </ListBox>
+            
+            <Label Grid.Row="0" Grid.Column="1" 
+                   Content="Наименование МПКИ"/>
+            <dxe:TextEdit Grid.Row="1" Grid.Column="1" 
+                          Text="{Binding Items, Converter={converters:ItemsCollectionNameConverter}}"/>
+            
+            <Grid Grid.Row="2" Grid.Column="1" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" 
+                       Content="Раздел Перечня:"/>
+                <dxe:ComboBoxEdit Grid.Row="1" Grid.Column="0" 
+                                 ItemsSource="{Binding Sections}" 
+                                 SelectedItem="{Binding SelectedSection}"/>
+                <Label Grid.Row="0" Grid.Column="1" 
+                       Content="Подразделение, проводящее контроль"/>
+                <dxe:ComboBoxEdit Grid.Row="1" Grid.Column="1"
+                                  ItemsSource="{Binding Subdivisions}"
+                                  SelectedItem="{Binding SelectedSubdivision}"
+                                  />
+                
+            </Grid>
+        </Grid>
+        <Label Grid.Row="1" 
+                   Content="Обозначение документа, требованиям которого должна соответствовать продукция:"/>
+        <dxe:TextEdit Grid.Row="2" 
+               Text="{Binding ControlledItemInfo}"/>
+        
+        <Label Grid.Row="3" 
+                   Content="Контролируемый параметр продукции, метод проверки или пункт документа по стандартизации, в котором он установлен:"/>
+        <dxe:TextEdit Grid.Row="4" 
+                      Text="{Binding Params}"/>
+        
+        <Label Grid.Row="5"
+               Content="Вид контроля, объём выборки или пробы(правило выборочного контроля), контрольный норматив, разрешающее правило:"/>
+        <dxe:TextEdit Grid.Row="6" 
+                      Text="{Binding ControlType}"/>
+        
+        <Label Grid.Row="7"
+               Content="Средство измерения или его требуемая метрологическая характеристика:"/>
+        <dxe:TextEdit Grid.Row="8"
+                      Text="{Binding MeasurementTools}"/>      
+
+        <Label Grid.Row="9"
+               Content="Методика контроля:"/>
+        <dxe:TextEdit Grid.Row="10"
+                      Text="{Binding Technique}"/>
+
+        <Label Grid.Row="11"
+               Content="Дополнительное оборудование для проведения входного котроля:"/>
+        <dxe:TextEdit Grid.Row="12"
+                      Text="{Binding Label}"/>
+        
+        <Label Grid.Row="13"
+               Content="Гарантийный срок хранения МПКИ:"/>
+        <dxe:TextEdit Grid.Row="14"
+                      Text="{Binding StorageTime}"/>
+        
+        <Label Grid.Row="15"
+               Content="Ответственные за номенклатуру:"/>
+        <dxe:TextEdit Grid.Row="16"
+                      Text="{Binding Responsible}"/>
+        
+        <Label Grid.Row="17"
+               Content="Сопроводительная документация:"/>
+        <dxe:TextEdit Grid.Row="18"
+                      Text="{Binding SupportDocument}"/>
+                
+        <Label Grid.Row="19"
+               Content="Файл дополнительных данных:"/>
+        <dxe:TextEdit Grid.Row="20"
+                      Text="{Binding FileName}"/>
+        
+        <dxe:CheckEditBox Grid.Row="21"
+                          IsChecked="{Binding VpNeed}"/>
+        
+        <Grid Grid.Row="22">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <UniformGrid>
+                <Button Content="Save"/>
+                <Button Content="Cancel"/>
+            </UniformGrid>
+        </Grid>
     </Grid>
 </UserControl>
+

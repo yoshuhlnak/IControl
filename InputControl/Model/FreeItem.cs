@@ -1,8 +1,10 @@
 ﻿namespace InputControl.Model
 {
-    public class FreeItem : BaseEntity
+    public class FreeItem : BaseEntity, IItem
     {
-        public string Item { get; set; }
+        //public int Id { get; set; }
+        public string Designation { get; set; }
         public string Name { get; set; }
+        public string PurchaseType { get; set; }
     }
 }

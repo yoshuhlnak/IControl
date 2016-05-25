@@ -1,18 +1,40 @@
-﻿using InputControl.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Windows.Input;
+using DevExpress.Mvvm;
+using InputControl.DialogRelated;
+using InputControl.Model;
 
 namespace InputControl.ViewModel
 {
-    public class ControlledItemViewModel
-    {
-        private readonly IList<BaseEntity> _entities;
+    public delegate void ControlledItemViewModelCallBack( ControlledItemViewModel vm );
 
-        public ControlledItemViewModel(IList<BaseEntity> entities)
+    public class ControlledItemViewModel : IDialogResultVMHelper
+    {
+        private readonly ControlledItemViewModelCallBack _callBack;
+
+        private readonly Lazy<DelegateCommand> _okCommand;
+        private readonly Lazy<DelegateCommand> _cancelCommand;
+
+        public ControlledItemViewModel( ControlledItemViewModelCallBack callBack )
         {
-            _entities = entities;
+            _callBack = callBack;
+            this . _okCommand = new Lazy<DelegateCommand>( () => new DelegateCommand(() =>
+            {
+                _callBack(this);
+                InvokeRequestCloseDialog(new RequestCloseDialogEventArgs(true));
+            }, ValidateAll ) );
         }
+
+        public IList<IItem> Items { get; set; }
+        public IList<ControlledSection> Sections { get; set; }
+        public ControlledSection SelectedSection { get; set; }
+
+        public IList<Subdivision> Subdivisions { get; set; }
+        public Subdivision SelectedSubdivision { get; set; }
+
+        public IList<ItemToken> Tokens { get; set; }
+        public ItemToken SelectedToken { get; set; }
 
         public string ControlledItemInfo { get; set; }
         public string Params { get; set; }
@@ -21,14 +43,20 @@ namespace InputControl.ViewModel
         public string Technique { get; set; }
         public string Label { get; set; }
         public string StorageTime { get; set; }
-        public int Subdiv { get; set; }
-        public DateTime Date { get; set; }
-        public string EdituserLogin { get; set; }
         public string Responsible { get; set; }
         public int Section { get; set; }
         public bool VpNeed { get; set; }
         public string SupportDocument { get; set; }
-        public int Token { get; set; }
+        public string FileName { get; set; }
+
+        public ICommand SaveCommand
+        {
+            get { return _okCommand . Value; }
+        }
+        public ICommand CancelComand {
+            get { return _cancelCommand.Value; }
+        }
+
 
         public void Cancel()
         {
@@ -36,23 +64,20 @@ namespace InputControl.ViewModel
 
         public void Save()
         {
-            foreach (var entity in _entities.OfType<FreeItem>() )
-            {
-                SaveEntity(entity);
-            }
-            foreach(var entity in _entities.OfType<ControlledItem>())
-            {
-                SaveEntity(entity);
-            }
         }
 
-        public void SaveEntity(FreeItem item)
+        public event EventHandler<RequestCloseDialogEventArgs> RequestCloseDialog;
+
+        private void InvokeRequestCloseDialog( RequestCloseDialogEventArgs e )
         {
+            var handler = RequestCloseDialog;
+            if( handler != null )
+                handler( this, e );
         }
 
-        public void SaveEntity(ControlledItem item )
+        private bool ValidateAll()
         {
-
+            return false;
         }
     }
 }

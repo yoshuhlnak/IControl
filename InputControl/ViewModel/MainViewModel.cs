@@ -5,12 +5,10 @@ using System.Linq;
 using DevExpress.Mvvm;
 using InputControl.Model;
 using InputControl.Service;
-using PropertyChanging;
 using IDialogService = InputControl.Service.IDialogService;
 
 namespace InputControl.ViewModel
 {
-    [ImplementPropertyChanging]
     public class MainViewModel : BindableBase
     {
         private readonly IDialogService _dialogService;
