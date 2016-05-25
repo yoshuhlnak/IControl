@@ -1,5 +1,10 @@
 ﻿using InputControl.Model;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data.Entity;
+using System.Linq;
+using System.Windows.Input;
+using DevExpress.Mvvm;
 
 namespace InputControl.ViewModel
 {

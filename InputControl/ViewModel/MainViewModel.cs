@@ -9,7 +9,7 @@ using IDialogService = InputControl.Service.IDialogService;
 
 namespace InputControl.ViewModel
 {
-    public class MainViewModel : BindableBase
+    public class MainViewModel
     {
         private readonly IDialogService _dialogService;
         private readonly DbContext _context;
