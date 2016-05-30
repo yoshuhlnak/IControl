@@ -36,6 +36,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Mvvm.v15.2, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Controls.v15.2, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -78,7 +81,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Converters\ItemsCollectionNameConverter.cs" />
     <Compile Include="DialogRelated\IDialogResultVMHelper.cs" />
     <Compile Include="DialogRelated\RequestCloseDialogEventArgs .cs" />
     <Compile Include="Service\IUserService.cs" />
@@ -103,15 +105,6 @@
     <Compile Include="ViewModel\FreeItemListViewModel.cs" />
     <Compile Include="ViewModel\IListViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="View\ControlledItemListView.xaml.cs">
-      <DependentUpon>ControlledItemListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\ControlledItemView.xaml.cs">
-      <DependentUpon>ControlledItemView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\FreeItemListView.xaml.cs">
-      <DependentUpon>FreeItemListView.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\BaseEntity.cs" />
@@ -147,6 +140,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DevExpressUI\DevExpressUI.csproj">
+      <Project>{40745a36-5667-4221-91fa-78140e313d8b}</Project>
+      <Name>DevExpressUI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FileLoader\FileLoader.csproj">
       <Project>{bfa599c0-96f8-47f1-b0ff-24af5b20480e}</Project>
       <Name>FileLoader</Name>
@@ -154,22 +151,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="View\DialogWindow.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\MainWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ControlledItemListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ControlledItemView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\FreeItemListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

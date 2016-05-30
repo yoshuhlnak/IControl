@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using DevExpress.Mvvm;
 using InputControl.Model;
 using InputControl.Service;
 using PropertyChanged;
