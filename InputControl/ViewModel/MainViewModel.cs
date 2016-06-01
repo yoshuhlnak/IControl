@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using Core.Model;
 using InputControl.Model;
 using InputControl.Service;
 using PropertyChanged;
@@ -29,24 +30,32 @@ namespace InputControl.ViewModel
             ControlledItemListViewModel = new ControlledItemListViewModel(_context);
         }
 
+        /// <summary>
+        /// Show add new items to controlled list dialog 
+        /// </summary>
         private void ShowAddFreeItemsDialog()
         {
             var dialogViewModel = new ControlledItemViewModel( ConvertFreeItemsToControlled ) ;
-            InitializeDialogViewModel( dialogViewModel );
+            InitializeDialogViewModel(dialogViewModel, FreeItemListViewModel.SelectedItems.OfType<IItem>().ToList());
             _dialogService.ShowDialog( "Добавить изделия в перечень", dialogViewModel );
         }
 
+        /// <summary>
+        /// show edit controlled list items dialog
+        /// </summary>
         private void ShowSaveControlledChanges()
         {
             var dialogViewModel = new ControlledItemViewModel( SaveChangesToControlled );
-            InitializeDialogViewModel( dialogViewModel );
+            InitializeDialogViewModel( dialogViewModel, new List<IItem>(){ ControlledItemListViewModel.Focused } );
             _dialogService.ShowDialog( "Изменить изделия в перечне", dialogViewModel);
         }
 
+        /// <summary>
+        /// Saves info from ControlledItemViewModel to db
+        /// </summary>
+        /// <param name="viewModel"></param>
         private void ConvertFreeItemsToControlled(ControlledItemViewModel viewModel)
         {
-            //TODO: AddFile
-
             IList<ControlledItem> newItems = new List<ControlledItem>();
             foreach (var item in viewModel.Items)
             {
@@ -72,6 +81,7 @@ namespace InputControl.ViewModel
                     VpNeed = viewModel.VpNeed
                 };
                 _context.Set<ControlledItem>().Add(newItem);
+                //TODO: Add file saving
                 newItems.Add( newItem );
             }
             _context.SaveChanges();
@@ -80,8 +90,46 @@ namespace InputControl.ViewModel
             ControlledItemListViewModel.AddControlledItems( newItems );             // add to controlled without refreshing from db
         }
 
-        private void InitializeDialogViewModel(ControlledItemViewModel viewModel)
+        /// <summary>
+        /// Initializes ControlledItemViewModel( loads combobox lists and initialize Items from SelectedItems of FreeItemListViewModel )
+        /// </summary>
+        /// <param name="viewModel">viewModel to initialize</param>
+        /// <param name="items">items to edit</param>
+        private void InitializeDialogViewModel(ControlledItemViewModel viewModel, IList<IItem> items )
         {
+            viewModel.Sections = _context.Set<ControlledSection>().ToList();
+            viewModel.Subdivisions = _context.Set<Subdivision>().ToList();
+            viewModel.Tokens = _context.Set<ItemToken>().ToList(); 
+
+            viewModel.Items = items;
+
+            if( items.Count == 1 && items.ElementAt(0) is ControlledItem )
+            {
+                SetDialogViewModelField(viewModel, items.ElementAt(0) as ControlledItem);
+            }
+        }
+        /// <summary>
+        /// Fill viewModel properties from item properties
+        /// </summary>
+        /// <param name="viewModel">viewModel, which properties to fill</param>
+        /// <param name="item">source - item's properties</param>
+        private void SetDialogViewModelField( ControlledItemViewModel viewModel, ControlledItem item)
+        {
+            viewModel.SelectedSection = viewModel.Sections.FirstOrDefault( section => section == item.ControlledSection );
+            viewModel.SelectedSubdivision = viewModel.Subdivisions.FirstOrDefault(subdiv => subdiv == item.Subdiv);
+            viewModel.SelectedToken = viewModel.Tokens.FirstOrDefault(token => token == item.Token);
+
+            viewModel.ControlledItemInfo = item.ControlledItemInfo;
+            viewModel.Params = item.Params;
+            viewModel.ControlType = item.ControlType;
+            viewModel.MeasurementTools = item.MeasurementTools;
+            viewModel.Technique = item.Technique;
+            viewModel.Label = item.Label;
+            viewModel.StorageTime = item.StorageTime;
+            viewModel.Responsible = item.Responsible;
+            viewModel.VpNeed = item.VpNeed;
+            viewModel.SupportDocument = item.SupportDocument;
+            viewModel.FileName = ""; //TODO: add file name filling
         }
 
         private void SaveChangesToControlled(ControlledItemViewModel viewModel)

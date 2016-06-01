@@ -1,4 +1,4 @@
-﻿namespace InputControl.Model
+﻿namespace Core.Model
 {
     public interface IItem
     {

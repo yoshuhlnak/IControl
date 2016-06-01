@@ -29,11 +29,7 @@ namespace InputControl.ViewModel
             {
                 return new DelegateCommand(() =>
                 {
-                    var selectedList = new List<FreeItem>(SelectedItems);
-                    SelectedItems = new List<FreeItem>();
-                    SelectedItems.Add(Focused);
                     _editDialogDelegate();
-                    SelectedItems = selectedList; // to return selection
                 }, CanCreateControlled);
             }
         }
@@ -53,7 +49,7 @@ namespace InputControl.ViewModel
         public FreeItem Focused { get; set; }
 
         public bool CanCreateControlled {
-            get { return true; }
+            get { return SelectedItems.Count > 0; }
         }
         public bool CanCreateControlledSrl {
             get { return true; }

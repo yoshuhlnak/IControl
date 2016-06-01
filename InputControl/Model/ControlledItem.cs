@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Model;
 
 namespace InputControl.Model
 {

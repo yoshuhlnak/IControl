@@ -19,12 +19,14 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBox Text="{Binding Count}" Width="200"></TextBox>
-            <Button Grid.Column="1" Content="Refresh"
-                    Command="{Binding RefreshCommand}" Height="32"/>
+            <Button Grid.Column="0" Content="AddToList" Margin="3,3,3,3"
+                        Command="{Binding ConvertFocusedToContolledCommand}" />
+            <Button Grid.Column="1" Content="Refresh" Margin="3,3,3,3"
+                    Command="{Binding RefreshCommand}"/>
         </Grid>
         <dxg:GridControl Grid.Row="1" MaxHeight="2056"
                          ItemsSource="{Binding ListCollection,UpdateSourceTrigger=PropertyChanged}"
+                         SelectedItems="{Binding SelectedItems}"
                          >
             <dxg:GridControl.Columns>
                 <dxg:GridColumn Header="Обозначение (Код MAX)" Binding="{Binding Designation, UpdateSourceTrigger=PropertyChanged}"/>

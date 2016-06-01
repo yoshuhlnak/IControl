@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:converters="clr-namespace:InputControl.Converters"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             Width="600"
+             mc:Ignorable="d" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -40,8 +40,8 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="7*"/>
             </Grid.ColumnDefinitions>
             
             <Label Grid.Row="0" Grid.Column="0" 
@@ -142,8 +142,10 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <UniformGrid>
-                <Button Content="Save"/>
-                <Button Content="Cancel"/>
+                <Button Margin="3,3,3,3"
+                    Content="Save" Command="{Binding SaveCommand}"/>
+                <Button Margin="3,3,3,3"
+                    Content="Cancel" Command="{Binding CancelCommand}"/>
             </UniformGrid>
         </Grid>
     </Grid>

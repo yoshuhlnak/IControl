@@ -1,4 +1,6 @@
-﻿namespace InputControl.Model
+﻿using Core.Model;
+
+namespace InputControl.Model
 {
     public class FreeItem : BaseEntity, IItem
     {

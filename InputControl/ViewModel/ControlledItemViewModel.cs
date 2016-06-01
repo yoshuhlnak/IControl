@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Input;
+using Core.Model;
 using DevExpress.Mvvm;
 using InputControl.DialogRelated;
 using InputControl.Model;
@@ -21,11 +22,16 @@ namespace InputControl.ViewModel
         public ControlledItemViewModel( ControlledItemViewModelCallBack callBack )
         {
             _callBack = callBack;
-            this . _okCommand = new Lazy<DelegateCommand>( () => new DelegateCommand(() =>
+            _okCommand = new Lazy<DelegateCommand>( () => new DelegateCommand(() =>
             {
                 _callBack(this);
                 InvokeRequestCloseDialog(new RequestCloseDialogEventArgs(true));
-            }, ValidateAll ) );
+            }, () => ValidateSection() && ValidateSubdiv() ) );
+
+            _cancelCommand = new Lazy<DelegateCommand>(() =>
+                new DelegateCommand(() =>
+                    InvokeRequestCloseDialog(new RequestCloseDialogEventArgs(false))
+                    , true));
         }
 
         public IList<IItem> Items { get; set; }
@@ -46,7 +52,6 @@ namespace InputControl.ViewModel
         public string Label { get; set; }
         public string StorageTime { get; set; }
         public string Responsible { get; set; }
-        public int Section { get; set; }
         public bool VpNeed { get; set; }
         public string SupportDocument { get; set; }
         public string FileName { get; set; }
@@ -55,17 +60,8 @@ namespace InputControl.ViewModel
         {
             get { return _okCommand . Value; }
         }
-        public ICommand CancelComand {
+        public ICommand CancelCommand {
             get { return _cancelCommand.Value; }
-        }
-
-
-        public void Cancel()
-        {
-        }
-
-        public void Save()
-        {
         }
 
         public event EventHandler<RequestCloseDialogEventArgs> RequestCloseDialog;
@@ -79,7 +75,31 @@ namespace InputControl.ViewModel
 
         private bool ValidateAll()
         {
-            return false;
+            return ValidateSubdiv() && ValidateSection() && ( ValidateTextFields() || ConsultUserAboutEmptyFields() ) ;
+        }
+
+        private bool ConsultUserAboutEmptyFields()
+        {
+            return true; //TODO: Add user asking whether we can continue with empty fields
+        }
+
+        private bool ValidateTextFields()
+        {
+            return !(String.IsNullOrEmpty(ControlledItemInfo) || String.IsNullOrEmpty(Params) ||
+                     String.IsNullOrEmpty(ControlType)
+                     || String.IsNullOrEmpty(MeasurementTools) || String.IsNullOrEmpty(Technique) ||
+                     String.IsNullOrEmpty(Label)
+                     || String.IsNullOrEmpty(StorageTime));
+        }
+
+        private bool ValidateSection()
+        {
+            return SelectedSection != null;
+        }
+
+        private bool ValidateSubdiv()
+        {
+            return SelectedSubdivision != null;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace InputControl.Model
             : base( "name=InputControlConnection" )
         {
             Database . SetInitializer<DataContext>( new CreateDatabaseIfNotExists<DataContext>() );
-           // Database . SetInitializer<DataContext>( new DropCreateDatabaseAlways<DataContext>());
+           //Database . SetInitializer<DataContext>( new DropCreateDatabaseAlways<DataContext>());
         }
 
         public virtual DbSet<ControlledItem> ControlledItems { get; set; }
